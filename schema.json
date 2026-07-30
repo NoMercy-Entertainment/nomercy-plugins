@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/NoMercy-Entertainment/nomercy-plugins/master/schema.json",
+  "title": "NoMercy plugin repository index",
+  "description": "The document a NoMercy media server fetches from a plugin repository URL.",
+  "type": "object",
+  "required": ["name", "plugins"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The repository's own name."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "A homepage for the repository."
+    },
+    "plugins": {
+      "type": "array",
+      "description": "Every plugin this repository offers. An empty list is valid.",
+      "items": { "$ref": "#/$defs/plugin" }
+    }
+  },
+  "$defs": {
+    "plugin": {
+      "type": "object",
+      "required": ["id", "name", "description", "versions"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The plugin's GUID, identical to the id in its plugin.json."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The plugin's name. The server names the downloaded assembly after this."
+        },
+        "description": { "type": "string" },
+        "author": { "type": "string" },
+        "projectUrl": { "type": "string", "format": "uri" },
+        "versions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/version" }
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "required": ["version", "downloadUrl"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+){1,3}$",
+          "description": "Dotted numeric. This is what the server compares."
+        },
+        "downloadUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "A direct link to the .dll. The server fetches this; a browser never sees it."
+        },
+        "targetAbi": { "type": "string" },
+        "checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 of the file at downloadUrl, lowercase hex. Omitting it means the install cannot be verified."
+        },
+        "changelog": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
