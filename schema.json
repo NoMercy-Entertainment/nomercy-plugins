@@ -29,8 +29,8 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uuid",
-          "description": "The plugin's GUID, identical to the id in its plugin.json."
+          "pattern": "^([0-9A-HJKMNP-TV-Z]{26}|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
+          "description": "The plugin's id, identical to the id in its plugin.json. A Ulid, or the GUID form used by plugins published before the platform settled on Ulid — the server reads both and treats them as the same sixteen bytes, so a plugin keeps its identity, its consent and its grants across the change."
         },
         "name": {
           "type": "string",
