@@ -1,0 +1,9 @@
+{
+  "$comment": "Every plugin index this catalogue gathers from. One entry per plugin, added once, by pull request. See README.md § Listing your plugin.",
+  "sources": [
+    {
+      "name": "Torrent Downloader",
+      "url": "https://forgejo.phillippepelzer.me/FiLL/nomercy-torrent-plugin/raw/branch/master/repository.json"
+    }
+  ]
+}

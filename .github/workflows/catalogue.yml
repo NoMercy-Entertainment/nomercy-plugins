@@ -1,0 +1,66 @@
+name: catalogue
+
+# Builds index.json from the sources authors submit, and checks a submission
+# before anyone reads it.
+#
+# index.json used to be typed by hand, one block per version, so a plugin was
+# listed once and went stale the moment it shipped again — its author had to
+# open another pull request for every release. Now an author submits one URL
+# once and their own index says which versions exist.
+
+on:
+  # A submission is a change to sources.json. Validate it against the real
+  # thing — fetch what was submitted and read it — rather than reviewing a URL
+  # by eye.
+  pull_request:
+
+  # Merging a submission publishes it straight away, rather than leaving the
+  # author waiting for whenever the schedule next comes round.
+  push:
+    branches: [master]
+
+  # Every six hours: this is how a release reaches the catalogue without anyone
+  # being asked. It is the whole point.
+  schedule:
+    - cron: '0 */6 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # On a pull request nothing is written. The build runs against what was
+      # submitted and fails if it cannot be used, so a broken submission is
+      # answered by the run rather than by a reviewer noticing.
+      - name: Check the submission
+        if: github.event_name == 'pull_request'
+        run: python tools/build-index.py
+
+      - name: Rebuild the index
+        if: github.event_name != 'pull_request'
+        run: python tools/build-index.py
+
+      # Only when it really changed. A commit per scheduled run would bury the
+      # ones that mean something.
+      - name: Publish
+        if: github.event_name != 'pull_request'
+        run: |
+          set -eu
+          git diff --quiet -- index.json && { echo "nothing to publish"; exit 0; }
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git commit -m "catalogue: rebuild from sources"
+          git push
