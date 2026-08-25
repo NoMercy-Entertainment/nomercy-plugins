@@ -29,13 +29,13 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uuid",
-          "description": "The plugin's GUID, identical to the id in its plugin.json."
+          "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+          "description": "The plugin's Ulid, identical to the id in its plugin.json. Twenty-six characters of Crockford base32 — the digits and A-Z without I, L, O or U. Not a GUID: IPlugin.Id is a Ulid, and this schema asked for a uuid while every plugin in the catalogue used a Ulid."
         },
         "name": {
           "type": "string",
           "minLength": 1,
-          "description": "The plugin's name. The server names the downloaded assembly after this."
+          "description": "The plugin's name, as it is shown in the catalogue."
         },
         "description": { "type": "string" },
         "author": { "type": "string" },
@@ -59,7 +59,7 @@
         "downloadUrl": {
           "type": "string",
           "format": "uri",
-          "description": "A direct link to the .dll. The server fetches this; a browser never sees it."
+          "description": "A direct link to the plugin's zip. The server fetches it, verifies it against checksum and extracts it; a browser never sees it. Not a bare .dll — a plugin is a folder of assemblies and its manifest, and PluginManager opens the download as a zip archive."
         },
         "targetAbi": { "type": "string" },
         "checksum": {
