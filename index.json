@@ -10,6 +10,14 @@
       "projectUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin",
       "versions": [
         {
+          "version": "2.0.0",
+          "targetAbi": "12.1",
+          "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin/releases/download/v2.0.0/NoMercy.Plugin.InternetRadio-2.0.0.zip",
+          "checksum": "028efd66d7e6bb37ab4efd412351f8360603e1b22c10d2ce64c4eec99e1bbc03",
+          "changelog": "Built for plugin ABI 12, so it loads on NoMercy MediaServer v0.1.526 and newer, which refuse every 1.x release. Stations play through the server's own media proxy, pages are declared up front, and the owner is asked for network access at install.",
+          "timestamp": "2026-10-15T15:21:55Z"
+        },
+        {
           "version": "1.2.0",
           "targetAbi": "10.0",
           "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin/releases/download/v1.2.0/NoMercy.Plugin.InternetRadio-1.2.0.zip",
