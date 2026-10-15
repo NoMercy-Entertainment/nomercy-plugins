@@ -4,6 +4,10 @@
     {
       "name": "Torrent Downloader",
       "url": "https://forgejo.phillippepelzer.me/FiLL/nomercy-torrent-plugin/raw/branch/master/repository.json"
+    },
+    {
+      "name": "Internet Radio",
+      "url": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin/raw/branch/main/repository.json"
     }
   ]
 }
