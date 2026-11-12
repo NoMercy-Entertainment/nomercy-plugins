@@ -40,6 +40,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test the catalogue tools
+        run: |
+          python -m pip install --quiet pyyaml==6.0.3
+          python tools/test_catalogue.py
+
       # On a pull request nothing is written. The build runs against what was
       # submitted and fails if it cannot be used, so a broken submission is
       # answered by the run rather than by a reviewer noticing.
@@ -47,8 +52,12 @@ jobs:
         if: github.event_name == 'pull_request'
         run: python tools/build-index.py
 
+      # A source that cannot be read is reported and skipped; the healthy ones still
+      # publish (plugins#5). The last step turns the run red so the bad source is seen.
       - name: Rebuild the index
+        id: rebuild
         if: github.event_name != 'pull_request'
+        continue-on-error: true
         run: python tools/build-index.py
 
       # Only when it really changed. A commit per scheduled run would bury the
@@ -64,3 +73,9 @@ jobs:
           git add index.json
           git commit -m "catalogue: rebuild from sources"
           git push
+
+      - name: Report source problems
+        if: steps.rebuild.outcome == 'failure'
+        run: |
+          echo "::error::A source had problems (see Rebuild the index). The healthy sources were published."
+          exit 1
