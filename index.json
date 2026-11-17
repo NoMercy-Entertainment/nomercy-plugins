@@ -10,6 +10,13 @@
       "projectUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin",
       "versions": [
         {
+          "version": "2.0.8",
+          "targetAbi": "12.1",
+          "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin/releases/download/v2.0.8/NoMercy.Plugin.InternetRadio-2.0.8.zip",
+          "checksum": "ed2ee56ac18af8dc6274b2a43025ba0bb2ed2138f7deb7c80c0dede6935c5e27",
+          "timestamp": "2026-11-17T20:02:45Z"
+        },
+        {
           "version": "2.0.7",
           "targetAbi": "12.1",
           "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-radiostation-plugin/releases/download/v2.0.7/NoMercy.Plugin.InternetRadio-2.0.7.zip",
