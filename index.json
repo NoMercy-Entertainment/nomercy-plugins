@@ -107,6 +107,14 @@
       "projectUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-torrent-plugin",
       "versions": [
         {
+          "version": "0.8.5",
+          "targetAbi": "12.5",
+          "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-torrent-plugin/releases/download/v0.8.5/NoMercy.Plugin.TorrentDownloader-0.8.5.zip",
+          "checksum": "58988c3f331c8314fcb72b4e77d4857fbe0afc0727dcdb731a14519c5c8f50cb",
+          "changelog": "No episode is encoded twice, a resumed download finds its peers again, and an update no longer waits on the copy before it.",
+          "timestamp": "2026-11-19T09:02:49Z"
+        },
+        {
           "version": "0.8.4",
           "targetAbi": "12.5",
           "downloadUrl": "https://forgejo.phillippepelzer.me/FiLL/nomercy-torrent-plugin/releases/download/v0.8.4/NoMercy.Plugin.TorrentDownloader-0.8.4.zip",
